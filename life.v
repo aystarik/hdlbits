@@ -15,32 +15,15 @@ module top_module(
     generate
         for (i = 0; i < 16; i = i + 1) begin : i_
             for (j = 0; j < 16; j = j + 1) begin : j_
-                wire [3:0] a1 = i + 1, a2 = j;
-                wire [7:0] a = {a1, a2};
-                wire [3:0] b1 = i + 1, b2 = j+1;
-                wire [7:0] b = {b1, b2};
-                wire [3:0] c1 = i + 1, c2 = j-1;
-                wire [7:0] c = {c1, c2};
                 
-                wire [3:0] d1 = i, d2 = j+1;
-                wire [7:0] d = {d1, d2};
-                wire [3:0] e1 = i, e2 = j-1;
-                wire [7:0] e = {e1, e2};
-                wire [3:0] f1 = i - 1, f2 = j + 1;
-                wire [7:0] f = {f1, f2};
-                wire [3:0] g1 = i - 1, g2 = j;
-                wire [7:0] g = {g1, g2};
-                wire [3:0] h1 = i - 1, h2 = j - 1;
-                wire [7:0] h = {h1, h2};
-                
-                life1 l({q[a],
-                         q[b],
-                         q[c],
-                         q[d],
-                         q[e],
-                         q[f],
-                         q[g],
-                         q[h]},
+                life1 l({q[((i+1) & 4'hf << 4) | (j)],
+                         q[((i+1) & 4'hf << 4) | (j+1)& 4'hf],
+                         q[((i+1) & 4'hf << 4) | (j-1)& 4'hf],
+                         q[((i-1) & 4'hf << 4) | (j)],
+                         q[((i-1) & 4'hf << 4) | (j+1)& 4'hf],
+                         q[((i-1) & 4'hf << 4) | (j-1)& 4'hf],
+                         q[((i) << 4) | (j+1)],
+                         q[((i) << 4) | (j-1)]},
                         q[(i << 4) | j], x[(i << 4) | j]);
             end
         end
